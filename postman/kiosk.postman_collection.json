@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/menu/top_menu",
+					"raw": "http://localhost:3000/api/v1/burgerking/top_menu",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -29,7 +29,7 @@
 					"path": [
 						"api",
 						"v1",
-						"menu",
+						"burgerking",
 						"top_menu"
 					]
 				}
@@ -42,18 +42,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/menu/test/",
+					"raw": "http://14.5.208.178:3000/api/v1/burgerking/test",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"14",
+						"5",
+						"208",
+						"178"
 					],
 					"port": "3000",
 					"path": [
 						"api",
 						"v1",
-						"menu",
-						"test",
-						""
+						"burgerking",
+						"test"
 					]
 				}
 			},
