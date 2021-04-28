@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker compose down
+sudo docker compose down
 
 exit 0
