@@ -9,7 +9,7 @@ export KIOSK_SERVER_IP=<ip-address>
 ```bash
 #!/bin/bash
 
-sudo docker-compose up -d mysql && sudo docker-compose up -d api_server
+sudo docker-compose up -d mysql && sudo docker-compose up -d --build api_server
 
 exit 0
 ```
@@ -41,7 +41,12 @@ ssh kiosk@"$KIOSK_SERVER_IP" "cd ./src/kiosk && sh stop-local-server.sh"
 ```bash
 #!/bin/bash
 
-ssh kiosk@"$KIOSK_SERVER_IP" "cd ./src/kiosk && sh stop-local-server.sh && git pull && sh start-local-server.sh"
+ssh kiosk@"$KIOSK_SERVER_IP" "cd ./src/kiosk && \
+    sh stop-local-server.sh && \
+    git pull && \
+    sh start-local-server.sh"
+    
+exit 0
 ```
 
 ## 생성한 모든 쉘 스크립트 실행가능한 파일로 변경

@@ -18,7 +18,7 @@ cat /etc/sudoers | tail -2
 7. Github - Setting - SSH and GPG Keys 에 **서버의 공개키** 등록
 ![](server-setting/Screen%20Shot%202021-04-28%20at%204.02.59%20PM.png)
 8. [클라이언트의 공개키를 서버에 등록](http://faq.add4s.com/?p=333)
-9. Git Repository Clone
+9. Git Repository Clone<br>
 ![](server-setting/Screen%20Shot%202021-04-28%20at%204.04.20%20PM.png)
 10. [Docker, Docker Compose 설치](https://docs.docker.com/compose/install/) 
 11. 사용할 서버들의 포트포워딩
