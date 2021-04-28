@@ -1,8 +1,8 @@
 # 🖥 Kiosk Project
 
 ## Agenda
-1. [Tech-Stack](#TechStack)
-2. [Documents](#Documents)
+1. [Tech-Stack](#-TechStack)
+2. [Documents](#-Documents)
     1. [Server Setting](#1-Server-Setting)
     2. [Client Setting](#2-Client-Setting)
 
