@@ -1,6 +1,6 @@
 {
   "type": "mysql",
-  "host": "localhost",
+  "host": "kiosk_mysql_1",
   "port": 3306,
   "username": "test",
   "password": "test",

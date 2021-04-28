@@ -1,6 +1,14 @@
 version: "3.9"
 
 services:
+  api_server:
+    build: .
+    image: api_server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    restart: unless-stopped
   mysql:
     image: mysql:8
     environment:
