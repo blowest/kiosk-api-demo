@@ -20,8 +20,21 @@ export class BackOfficeService {
   }
 
   createTopMenu(request: TopMenuDto): Promise<number> {
+    // const c = new MyClass();
+    // console.log(c.getName());
     const topMenu = new TopMenu();
     topMenu.name = request.name;
     return this.topMenuRepository.save(topMenu).then(r => r.id)
+    // return this.topMenuRepository.save(request.toEntity()).then(r => r.id)
+  }
+}
+
+class MyClass {
+  private name = "MyClass";
+  getName() {
+    return this.name;
+  }
+  setName(name: string) {
+    this.name = name;
   }
 }

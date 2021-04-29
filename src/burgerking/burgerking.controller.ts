@@ -8,13 +8,13 @@ import { BackOfficeService } from "./service/back-office.service";
 export class BurgerkingController {
   constructor(private readonly backOfficeService: BackOfficeService) {}
 
-  @Post('top_menu')
+  @Post('top_menus')
   createTopMenu(@Body() request: TopMenuDto): Promise<number> {
     return this.backOfficeService.createTopMenu(request);
   }
 
-  @Get('test')
-  test(): number {
-    return 123;
+  @Get('top_menus')
+  getAllTopMenu(): object {
+    return this.backOfficeService.findAllTopMenu();
   }
 }
