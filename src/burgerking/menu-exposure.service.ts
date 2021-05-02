@@ -1,8 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TopMenu } from "../entity/top-menu/top-menu.entity";
-import { TopMenuRepository } from "../entity/top-menu/top-menu-repository";
-import { TopMenuDto } from "./dto/top-menu.dto";
+import { TopMenuRepository } from "../entity/top-menu/top-menu.repository";
 
 @Injectable()
 export class MenuExposureService {

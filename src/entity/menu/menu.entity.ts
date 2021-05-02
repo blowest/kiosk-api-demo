@@ -1,16 +1,25 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Base } from "../base.entity";
 
 @Entity("menu")
-export class Menu {
+export class Menu extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  titleImage: string;
+  @Column({
+    name: "image_path",
+    type: "text"
+  })
+  imagePath: string;
 
-  @Column()
+  @Column({
+    name: "is_best",
+    type: "bool"
+  })
   isBest: boolean;
 
-  @Column()
+  @Column({
+    name: "min_cost"
+  })
   minCost: number;
 }

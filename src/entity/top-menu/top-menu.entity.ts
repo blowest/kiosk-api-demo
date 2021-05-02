@@ -1,16 +1,14 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { Base } from "../base.entity";
 
 @Entity("top_menu")
-export class TopMenu {
+export class TopMenu extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name: "name"})
+  @Column({
+    length: 20,
+    nullable: false
+  })
   name: string
-
-  @CreateDateColumn({name: "created_time"})
-  createdTime: Timestamp;
-
-  @UpdateDateColumn({name: "modified_time"})
-  modifiedTime: Timestamp;
 }

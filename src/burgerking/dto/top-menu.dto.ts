@@ -6,8 +6,8 @@ export class TopMenuDto {
   // getName(): string {
   //   return this.name
   // }
-  // toEntity(): TopMenu {
-  //   let entity = new TopMenu();
+  // toEntity(): TopMenuEntity {
+  //   let entity = new TopMenuEntity();
   //   entity.name = this.name;
   //   return entity;
   // }
