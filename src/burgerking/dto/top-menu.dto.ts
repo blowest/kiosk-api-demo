@@ -1,4 +1,4 @@
-import { TopMenu } from "../entity/top-menu/top-menu.entity";
+import { TopMenu } from "../../entity/top-menu/top-menu.entity";
 
 export class TopMenuDto {
   name: string

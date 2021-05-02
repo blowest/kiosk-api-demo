@@ -4,15 +4,17 @@ import { Connection } from 'typeorm';
 import { BurgerkingModule } from './burgerking/burgerking.module';
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { MenuRepository } from "./burgerking/entity/menu/menu.repository";
-import { MenuDetailRepository } from "./burgerking/entity/menu-detail/menu-detail.repository";
-import { MenuTypeRepository } from "./burgerking/entity/menu-type/menu-type.repository";
-import { TopMenuRepository } from "./burgerking/entity/top-menu/top-menu-repository";
+import { MenuRepository } from "./entity/menu/menu.repository";
+import { MenuDetailRepository } from "./entity/menu-detail/menu-detail.repository";
+import { MenuTypeRepository } from "./entity/menu-type/menu-type.repository";
+import { TopMenuRepository } from "./entity/top-menu/top-menu-repository";
+import { BackOfficeModule } from "./back_office/back-office.module";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    BurgerkingModule
+    BurgerkingModule,
+    BackOfficeModule
   ],
   controllers: [AppController],
   providers: [AppService],
