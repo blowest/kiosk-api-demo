@@ -1,7 +1,8 @@
 import { BackOfficeService } from "./back-office.service";
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { TopMenuDto } from "../burgerking/dto/top-menu.dto";
-import { MenuDetailDto } from "./dto/menu-detail.dto";
+import { MenuDetailRequestDto } from "./dto/menu-detail-request.dto";
+import { MenuDetailResponseDto } from "./dto/menu-detail-response.dto";
 
 @Controller('api/v1/back_office/')
 export class BackOfficeController {
@@ -10,7 +11,7 @@ export class BackOfficeController {
   // Top Menu Controller
   @Post('top_menus')
   createTopMenu(@Body() request: TopMenuDto): Promise<number> {
-    return this.backOfficeService.createTopMenu(request);
+    return this.backOfficeService.saveTopMenu(request);
   }
 
   @Get('top_menus')
@@ -20,7 +21,12 @@ export class BackOfficeController {
 
   // Menu Detail Controller
   @Post('menu_details')
-  createMenuDetail(@Body() request: MenuDetailDto): Promise<number> {
-    return this.backOfficeService.createMenuDetail(request);
+  createMenuDetail(@Body() request: MenuDetailRequestDto): Promise<number> {
+    return this.backOfficeService.saveMenuDetail(request);
+  }
+
+  @Get('menu_details/:id')
+  getMenuDetail(@Param("id") id): Promise<MenuDetailResponseDto> {
+    return this.backOfficeService.findMenuDetail(id);
   }
 }

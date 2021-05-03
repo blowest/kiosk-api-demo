@@ -1,5 +1,5 @@
 
-export class MenuDetailDto {
+export class MenuDetailRequestDto {
 
   name: string;
 
