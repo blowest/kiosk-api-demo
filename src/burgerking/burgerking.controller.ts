@@ -17,4 +17,5 @@ export class BurgerkingController {
   getAllTopMenu(): object {
     return this.backOfficeService.findAllTopMenu();
   }
+  
 }
