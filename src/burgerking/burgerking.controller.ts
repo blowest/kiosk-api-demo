@@ -1,21 +1,15 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { AppService } from "../app.service";
-import { MenuExposureService } from "./service/menu-exposure.service";
 import { TopMenuDto } from "./dto/top-menu.dto";
-import { BackOfficeService } from "./service/back-office.service";
+import { BackOfficeService } from "../back_office/back-office.service";
+import { MenuExposureService } from "./menu-exposure.service";
 
 @Controller('api/v1/burgerking/')
 export class BurgerkingController {
-  constructor(private readonly backOfficeService: BackOfficeService) {}
+  constructor(private readonly menuExposureService: MenuExposureService) {}
 
-  @Post('top_menus')
-  createTopMenu(@Body() request: TopMenuDto): Promise<number> {
-    return this.backOfficeService.createTopMenu(request);
-  }
-
-  @Get('top_menus')
-  getAllTopMenu(): object {
-    return this.backOfficeService.findAllTopMenu();
+  @Get()
+  welcome(): string {
+    return "Welcome Burgerking Kiosk Service";
   }
   
 }
