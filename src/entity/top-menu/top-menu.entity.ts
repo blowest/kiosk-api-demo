@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, Up
 import { Base } from "../base.entity";
 
 @Entity("top_menu")
-export class TopMenu extends Base {
+export class TopMenuEntity extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 

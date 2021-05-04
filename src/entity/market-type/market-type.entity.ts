@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Base } from "../base.entity";
 
 @Entity("market")
-export class marketType extends Base {
+export class marketTypeEntity extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 

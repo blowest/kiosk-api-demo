@@ -1,35 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { TopMenu } from "../entity/top-menu/top-menu.entity";
-import { TopMenuRepository } from "../entity/top-menu/top-menu.repository";
+import { TopMenuEntity } from "../entity/top-menu/top-menu.entity";
+import { TopMenuEntityRepository } from "../entity/top-menu/top-menu-entity.repository";
 import { TopMenuDto } from "../burgerking/dto/top-menu.dto";
 import { MenuDetailRequestDto } from "./dto/menu-detail-request.dto";
-import { MenuDetail } from "../entity/menu-detail/menu-detail.entity";
-import { Menu } from "../entity/menu/menu.entity";
-import { MenuDetailRepository } from "../entity/menu-detail/menu-detail.repository";
+import { MenuDetailEntity } from "../entity/menu-detail/menu-detail.entity";
+import { MenuDetailEntityRepository } from "../entity/menu-detail/menu-detail-entity.repository";
 import { MenuDetailResponseDto } from "./dto/menu-detail-response.dto";
 
 @Injectable()
 export class BackOfficeService {
   constructor(
-    @InjectRepository(TopMenu)
-    private readonly topMenuRepository: TopMenuRepository,
-    private readonly menuDetailRepository: MenuDetailRepository,
+    @InjectRepository(TopMenuEntity)
+    private readonly topMenuRepository: TopMenuEntityRepository,
+    private readonly menuDetailRepository: MenuDetailEntityRepository,
   ) {}
 
   // Top Menu service
-  findTopMenu(id: number): Promise<TopMenu> {
+  findTopMenu(id: number): Promise<TopMenuEntity> {
     return this.topMenuRepository.findOne(id);
   }
 
-  findAllTopMenu(): Promise<TopMenu[]> {
+  findAllTopMenu(): Promise<TopMenuEntity[]> {
     return this.topMenuRepository.find();
   }
 
   saveTopMenu(request: TopMenuDto): Promise<number> {
     // const c = new MyClass();
     // console.log(c.getName());
-    const topMenu = new TopMenu();
+    const topMenu = new TopMenuEntity();
     topMenu.name = request.name;
     return this.topMenuRepository.save(topMenu).then(r => r.id)
     // return this.topMenuRepository.save(request.toEntity()).then(r => r.id)
@@ -37,7 +36,7 @@ export class BackOfficeService {
 
   // Menu Detail service
   saveMenuDetail(request: MenuDetailRequestDto) {
-    const menuDetail = new MenuDetail();
+    const menuDetail = new MenuDetailEntity();
     menuDetail.name = request.name;
     menuDetail.cost = request.cost;
     menuDetail.imagePath = request.imagePath;
