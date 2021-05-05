@@ -48,15 +48,33 @@ export class BackOfficeService {
 
   async findMenuDetail(id): Promise<MenuDetailResponseDto> {
     const entity = await this.menuDetailRepository.findOne(id)
+
     const menuDetailResponseDto = new MenuDetailResponseDto()
-    menuDetailResponseDto.id = entity.id;
-    menuDetailResponseDto.name = entity.name;
-    menuDetailResponseDto.cost = entity.cost;
-    menuDetailResponseDto.imagePath = entity.imagePath;
-    menuDetailResponseDto.isActive = entity.isActive;
-    menuDetailResponseDto.createdTime = entity.createdTime;
-    menuDetailResponseDto.modifiedTime = entity.modifiedTime;
+    Object.assign(menuDetailResponseDto, entity);
 
     return menuDetailResponseDto;
+  }
+
+  async findAllMenuDetails(): Promise<MenuDetailResponseDto[]> {
+    const menuDetails = await this.menuDetailRepository.find();
+    const menuDetailsResponseDto: MenuDetailResponseDto[] = [];
+
+    menuDetails.forEach(menuDetail => menuDetailsResponseDto.push(Object.assign({}, menuDetail)));
+
+    return menuDetailsResponseDto;
+  }
+
+  async deleteMenuDetail(id: number) {
+    const entity = await this.menuDetailRepository.findOne(id)
+    entity.isActive = false
+    await this.menuDetailRepository.save(entity)
+  }
+
+  async updateMenuDetail(id: number, requestDto: MenuDetailRequestDto) {
+    const entity = await this.menuDetailRepository.findOne(id);
+    entity.name = requestDto.name;
+    entity.cost = requestDto.cost;
+    entity.imagePath = requestDto.imagePath;
+    return await this.menuDetailRepository.save(entity).then(menuDetail => menuDetail.id)
   }
 }

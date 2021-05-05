@@ -1,8 +1,10 @@
 import { BackOfficeService } from "./back-office.service";
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { TopMenuDto } from "../burgerking/dto/top-menu.dto";
 import { MenuDetailRequestDto } from "./dto/menu-detail-request.dto";
 import { MenuDetailResponseDto } from "./dto/menu-detail-response.dto";
+import { MenuDetail } from "../entity/menu-detail/menu-detail.entity";
+import { DeleteResult } from "typeorm";
 
 @Controller('api/v1/back_office/')
 export class BackOfficeController {
@@ -26,7 +28,23 @@ export class BackOfficeController {
   }
 
   @Get('menu_details/:id')
-  getMenuDetail(@Param("id") id): Promise<MenuDetailResponseDto> {
+  getMenuDetail(@Param("id") id: number): Promise<MenuDetailResponseDto> {
     return this.backOfficeService.findMenuDetail(id);
   }
+
+  @Get('menu_details')
+  getAllMenuDetails(): Promise<MenuDetailResponseDto[]> {
+    return this.backOfficeService.findAllMenuDetails()
+  }
+
+  @Delete('menu_details/:id')
+  deleteMenuDetail(@Param("id") id: number): Promise<void> {
+    return this.backOfficeService.deleteMenuDetail(id)
+  }
+
+  @Patch('menu_details/:id')
+  updateMenuDetail(@Param("id") id: number, @Body() menuDetailRequest: MenuDetailRequestDto): Promise<number> {
+    return this.backOfficeService.updateMenuDetail(id, menuDetailRequest)
+  }
+
 }
