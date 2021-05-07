@@ -24,7 +24,7 @@ export class BackOfficeController {
   // Menu Detail Controller
   @Post('menu_details')
   createMenuDetail(@Body() request: MenuDetailRequestDto): Promise<number> {
-    return this.backOfficeService.saveMenuDetail(request);
+    return this.backOfficeService.createMenuDetail(request);
   }
 
   @Get('menu_details/:id')
@@ -38,8 +38,8 @@ export class BackOfficeController {
   }
 
   @Delete('menu_details/:id')
-  deleteMenuDetail(@Param("id") id: number): Promise<void> {
-    return this.backOfficeService.deleteMenuDetail(id)
+  async deleteMenuDetail(@Param("id") id: number): Promise<boolean> {
+    return await this.backOfficeService.deleteMenuDetail(id)
   }
 
   @Patch('menu_details/:id')
