@@ -11,4 +11,5 @@ export class BurgerkingController {
   welcome(): string {
     return "Welcome Burgerking Kiosk Service";
   }
+  
 }
