@@ -30,7 +30,9 @@ export class BackOfficeController {
   @Get('menu_details/:id')
   getMenuDetail(@Param("id") id: number): Promise<MenuDetailResponseDto> {
     return this.backOfficeService.findMenuDetail(id);
-  }
+}
+
+
 
   @Get('menu_details')
   getAllMenuDetails(): Promise<MenuDetailResponseDto[]> {
