@@ -7,22 +7,26 @@ import { MenuDetailRequestDto } from "./dto/menu-detail-request.dto";
 import { MenuDetailEntity } from "../entity/menu-detail/menu-detail.entity";
 import { MenuDetailEntityRepository } from "../entity/menu-detail/menu-detail-entity.repository";
 import { MenuDetailResponseDto } from "./dto/menu-detail-response.dto";
+import { getManager } from "typeorm";
 
 @Injectable()
 export class BackOfficeService {
+
   constructor(
     @InjectRepository(TopMenuEntity)
-    private readonly topMenuRepository: TopMenuEntityRepository,
-    private readonly menuDetailRepository: MenuDetailEntityRepository,
+    private readonly topMenuEntityRepository: TopMenuEntityRepository,
+
+    @InjectRepository(MenuDetailEntity)
+    private readonly menuDetailEntityRepository: MenuDetailEntityRepository,
   ) {}
 
   // Top Menu service
   findTopMenu(id: number): Promise<TopMenuEntity> {
-    return this.topMenuRepository.findOne(id);
+    return this.topMenuEntityRepository.findOne(id);
   }
 
   findAllTopMenu(): Promise<TopMenuEntity[]> {
-    return this.topMenuRepository.find();
+    return this.topMenuEntityRepository.find();
   }
 
   saveTopMenu(request: TopMenuDto): Promise<number> {
@@ -30,32 +34,73 @@ export class BackOfficeService {
     // console.log(c.getName());
     const topMenu = new TopMenuEntity();
     topMenu.name = request.name;
-    return this.topMenuRepository.save(topMenu).then(r => r.id)
-    // return this.topMenuRepository.save(request.toEntity()).then(r => r.id)
+    return this.topMenuEntityRepository.save(topMenu).then(r => r.id)
+    // return this.topMenuEntityRepository.save(request.toEntity()).then(r => r.id)
   }
-
+//   await getManager().transaction(async (transactionalEntityManager) => {
+//   await this.boardRepository.deleteBoardsByUserId(transactionalEntityManager, userId)
+//   await this.userRepository.deleteUserByUserId(transactionalEntityManager, userId)
+// }).catch((err) => {
+//   throw err
+// })
   // Menu Detail service
-  saveMenuDetail(request: MenuDetailRequestDto) {
+  async createMenuDetail(request: MenuDetailRequestDto): Promise<number> {
     const menuDetail = new MenuDetailEntity();
     menuDetail.name = request.name;
     menuDetail.cost = request.cost;
     menuDetail.imagePath = request.imagePath;
 
-    return this.menuDetailRepository.save(menuDetail).then(menuDetail => menuDetail.id)
+    return await getManager().transaction(async (transactionalEntityManager) => {
+      return this.menuDetailEntityRepository.save(menuDetail).then(menuDetail => menuDetail.id);
+    }).catch((err) => {
+      throw err;
+    });
   }
 
-
   async findMenuDetail(id): Promise<MenuDetailResponseDto> {
-    const entity = await this.menuDetailRepository.findOne(id)
-    const menuDetailResponseDto = new MenuDetailResponseDto()
-    menuDetailResponseDto.id = entity.id;
-    menuDetailResponseDto.name = entity.name;
-    menuDetailResponseDto.cost = entity.cost;
-    menuDetailResponseDto.imagePath = entity.imagePath;
-    menuDetailResponseDto.isActive = entity.isActive;
-    menuDetailResponseDto.createdTime = entity.createdTime;
-    menuDetailResponseDto.modifiedTime = entity.modifiedTime;
+    const entity = await this.menuDetailEntityRepository.findOneActivated(id)
 
-    return menuDetailResponseDto;
+    const menuDetailResponseDto = new MenuDetailResponseDto()
+    return Object.assign(menuDetailResponseDto, entity);
+  }
+
+  async findAllMenuDetails(): Promise<MenuDetailResponseDto[]> {
+    const menuDetails = await this.menuDetailEntityRepository.findAllActivated();
+
+    const menuDetailsResponseDto: MenuDetailResponseDto[] = [];
+    menuDetails.forEach(menuDetail => menuDetailsResponseDto.push(Object.assign({}, menuDetail)));
+
+    return menuDetailsResponseDto;
+  }
+
+  async deleteMenuDetail(id: number): Promise<boolean> {
+    const entity = await this.menuDetailEntityRepository.findOneActivated(id)
+
+    if (entity == null) return false;
+
+    entity.isActive = false
+
+    return await getManager().transaction(async (transactionalEntityManager) => {
+      await this.menuDetailEntityRepository.save(entity)
+      return true;
+    }).catch((err) => {
+      throw err;
+    });
+  }
+
+  async updateMenuDetail(id: number, requestDto: MenuDetailRequestDto): Promise<number> {
+    const entity = await this.menuDetailEntityRepository.findOneActivated(id)
+
+    if (entity == null) return 0;
+
+    entity.name = requestDto.name;
+    entity.cost = requestDto.cost;
+    entity.imagePath = requestDto.imagePath;
+
+    return getManager().transaction(async (transactionEntityManager) => {
+      return await this.menuDetailEntityRepository.save(entity).then(menuDetail => menuDetail.id)
+    }).catch((err) => {
+      throw err;
+    });
   }
 }
