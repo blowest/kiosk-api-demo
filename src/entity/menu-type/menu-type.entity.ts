@@ -7,7 +7,7 @@ export class MenuTypeEntity extends Base {
   id: number;
 
   @Column({
-    length: 20,
+    length: 20
   })
   name: string;
 }
