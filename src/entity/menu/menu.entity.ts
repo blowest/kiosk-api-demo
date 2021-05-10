@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Base } from "../base.entity";
+import { Base } from '../base.entity';
 
 @Entity("menu")
 export class MenuEntity extends Base {
