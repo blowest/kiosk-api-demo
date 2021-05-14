@@ -3,7 +3,6 @@ import { Column, CreateDateColumn, Timestamp, UpdateDateColumn } from 'typeorm';
 export abstract class Base {
   @Column({
     name: 'is_active',
-    type: 'bool',
     default: true,
   })
   isActive: boolean;

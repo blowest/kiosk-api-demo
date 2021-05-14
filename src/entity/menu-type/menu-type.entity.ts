@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Base } from "../base.entity";
 import { MenuEntity } from "../menu/menu.entity";
 
@@ -11,4 +11,10 @@ export class MenuTypeEntity extends Base {
     length: 20
   })
   name: string;
+
+  @OneToMany(
+    (type) => MenuEntity,
+    (menuEntity) => menuEntity.menuTypeEntity
+  )
+  menuEntityList!: MenuEntity[]
 }

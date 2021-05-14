@@ -17,13 +17,10 @@ describe('back-office TEST', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: 'localhost',
-          port: 3306,
-          username: 'root',
-          password: 'root',
-          database: 'kiosk',
+          type: 'sqlite',
+          database: ":memory:",
           entities: [MenuEntity, MenuTypeEntity, MenuDetailEntity, TopMenuEntity],
+          dropSchema: true,
           synchronize: true,
         }),
         TypeOrmModule.forFeature([
@@ -47,4 +44,20 @@ describe('back-office TEST', () => {
     expect(result.isBest).toBe(true);
     expect(result.minCost).toBe(10000);
   });
+
+  it("Insert Menu Item", async () => {
+    const newMenu = new MenuEntity();
+    newMenu.imagePath = "test_path";
+    newMenu.isBest = true;
+    newMenu.minCost = 1000;
+
+    const insertResult = await service.saveMenu(newMenu);
+    expect(insertResult).toBe(1);
+
+    const selectResult = await service.findMenu(insertResult);
+    expect(selectResult.id).toBe(1);
+    expect(selectResult.imagePath).toBe("test_path");
+    expect(selectResult.isBest).toBe(true);
+    expect(selectResult.minCost).toBe(1000);
+  })
 });
