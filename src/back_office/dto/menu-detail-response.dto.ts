@@ -1,4 +1,5 @@
 import { Timestamp } from "typeorm";
+import { MenuEntity } from "../../entity/menu/menu.entity";
 
 export class MenuDetailResponseDto {
 
@@ -9,6 +10,8 @@ export class MenuDetailResponseDto {
   cost: number;
 
   imagePath: string;
+
+  // menuEntity!: MenuEntity;
 
   isActive: boolean;
 

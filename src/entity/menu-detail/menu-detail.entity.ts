@@ -26,5 +26,5 @@ export class MenuDetailEntity extends Base {
     {onDelete: "CASCADE"}
   )
   @JoinColumn({name: "menu_id"})
-  menuEntity!: MenuEntity
+  menuEntity!: MenuDetailEntity
 }

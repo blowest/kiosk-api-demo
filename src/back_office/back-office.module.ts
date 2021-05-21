@@ -6,6 +6,7 @@ import { BackOfficeService } from './back-office.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BackOfficeController } from './back-office.controller';
+import { MenuDetailService } from "./service/menu-detail.service";
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { BackOfficeController } from './back-office.controller';
     ]),
   ],
   controllers: [BackOfficeController],
-  providers: [BackOfficeService],
+  providers: [BackOfficeService, MenuDetailService],
 })
 export class BackOfficeModule {}
